@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Probabili Euroleghe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: in alto scelta della squadra, poi il campo con la formazione consigliata, sotto la rosa completa per ruolo */
+:root {
+  --bg: #eef1ee;
+  --surface: #ffffff;
+  --ink: #17211c;
+  --muted: #5b6861;
+  --line: #d6dcd7;
+  --pitch: #1d5a3f;
+  --pitch-line: #2f7354;
+  --on-pitch: #f2f7f3;
+  --on-pitch-warn: #ffd27a;
+  --on-pitch-bad: #ffb3b6;
+  --good: #1d8549;
+  --warn: #b57a06;
+  --bad: #c3323a;
+  --focus: #1f6fd6;
+  --r-p: #e39a12;
+  --r-d: #3c9f2a;
+  --r-c: #1f6fd6;
+  --r-a: #d8323b;
+  --r-x: #7d8a83;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111714; --surface: #1a221e; --ink: #e7eee9; --muted: #9aa8a0; --line: #2c3731;
+    --pitch: #18432f; --pitch-line: #24583f; --on-pitch: #eef6f0;
+    --good: #45b874; --warn: #e2a93a; --bad: #e5646a; --focus: #6aa6ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111714; --surface: #1a221e; --ink: #e7eee9; --muted: #9aa8a0; --line: #2c3731;
+  --pitch: #18432f; --pitch-line: #24583f; --on-pitch: #eef6f0;
+  --good: #45b874; --warn: #e2a93a; --bad: #e5646a; --focus: #6aa6ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font-body); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 20px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+h1 { font-size: 30px; line-height: 1.1; }
+h2 { font-size: 21px; text-transform: uppercase; letter-spacing: .04em; }
+.sub { color: var(--muted); font-size: 14px; }
+.top { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; justify-content: space-between; }
+.teambar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+select, input[type=text], textarea { font: inherit; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); min-width: 0; }
+select { font-weight: 600; }
+button { font: 600 14px var(--font-body); cursor: pointer; }
+.btn { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--ink); background: var(--ink); color: var(--surface); }
+.ghost { padding: 8px 14px; border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--ink); }
+.danger { color: var(--bad); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible, label.file:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; font-size: 12.5px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); white-space: nowrap; }
+.chip.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 40%, transparent); }
+.chip.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.chip.info { color: var(--muted); }
+.role { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; font: 700 13px/1 var(--font-display); flex: none; }
+.role.P { background: var(--r-p); } .role.D { background: var(--r-d); } .role.C { background: var(--r-c); } .role.A { background: var(--r-a); } .role.X { background: var(--r-x); }
+
+/* Prima squadra / nuova squadra */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.newteam { display: grid; gap: 12px; }
+.newteam .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.newteam .row > input[type=text] { flex: 1 1 260px; }
+.steps { margin: 0; padding-left: 20px; color: var(--muted); display: grid; gap: 4px; max-width: 65ch; }
+label.file { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; border: 1px dashed var(--muted); cursor: pointer; font-weight: 600; }
+label.file input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.example { font-size: 13px; color: var(--muted); }
+.msg { font-size: 13.5px; color: var(--bad); }
+.msg.ok { color: var(--good); }
+
+/* Campo */
+.pitch { background: var(--pitch); color: var(--on-pitch); border-radius: 18px; padding: 16px; display: grid; gap: 14px; position: relative; overflow: hidden; }
+.pitch::before { content: ""; position: absolute; inset: 12px; border: 2px solid var(--pitch-line); border-radius: 10px; pointer-events: none; }
+.pitch::after { content: ""; position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; transform: translate(-50%, -50%); border: 2px solid var(--pitch-line); border-radius: 50%; pointer-events: none; }
+.pitch-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+.modules { display: flex; flex-wrap: wrap; gap: 6px; }
+.modules button { font: 600 14px var(--font-display); letter-spacing: .03em; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--pitch-line); background: transparent; color: var(--on-pitch); }
+.modules button[aria-pressed="true"] { background: var(--on-pitch); color: var(--pitch); }
+.line { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; position: relative; z-index: 1; margin-bottom: 10px; }
+.slot { width: 152px; min-height: 86px; background: color-mix(in srgb, var(--on-pitch) 11%, transparent); border: 1px solid color-mix(in srgb, var(--on-pitch) 18%, transparent); border-radius: 12px; padding: 8px 10px; display: grid; gap: 3px; align-content: start; min-width: 0; }
+.slot.empty { place-content: center; color: color-mix(in srgb, var(--on-pitch) 65%, transparent); font-size: 13px; text-align: center; }
+.slot .nm { display: flex; align-items: center; gap: 6px; font-weight: 600; line-height: 1.15; min-width: 0; }
+.slot .nm span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot .vs { font-size: 12.5px; opacity: .88; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot .pc { font: 700 20px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.slot .flag { font-size: 11.5px; font-weight: 600; color: var(--on-pitch-bad); }
+.bench { position: relative; z-index: 1; border-top: 1px dashed var(--pitch-line); padding-top: 12px; display: grid; gap: 6px; }
+.bench h3 { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; opacity: .85; }
+.bench ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; counter-reset: b; }
+.bench li { counter-increment: b; display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; padding: 3px 9px 3px 4px; border-radius: 99px; background: color-mix(in srgb, var(--on-pitch) 10%, transparent); }
+.bench li::before { content: counter(b); font: 700 12px var(--font-display); opacity: .7; padding-left: 4px; }
+.bench .role { width: 19px; height: 19px; font-size: 11px; }
+
+/* Rosa */
+.add { display: flex; flex-wrap: wrap; gap: 8px; }
+.add input[type=text] { flex: 1 1 240px; background: var(--bg); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 720px; }
+th { text-align: left; font: 600 12px var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr.group td { background: var(--bg); font: 700 14px var(--font-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 6px 8px; }
+.who { display: flex; gap: 8px; align-items: center; font-weight: 600; }
+.small { font-size: 12.5px; color: var(--muted); }
+.bar { display: grid; gap: 4px; min-width: 110px; }
+.bar b { font: 700 19px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.bar i { display: block; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.bar i::after { content: ""; display: block; height: 100%; width: var(--v); background: var(--c); }
+.notes { display: flex; flex-wrap: wrap; gap: 4px; max-width: 300px; }
+details { font-size: 13px; color: var(--muted); max-width: 300px; }
+details summary { cursor: pointer; color: var(--ink); font-weight: 500; }
+.x { border: 0; background: none; color: var(--muted); font-size: 18px; line-height: 1; padding: 2px 6px; border-radius: 6px; }
+.x:hover { color: var(--bad); }
+textarea { width: 100%; min-height: 110px; background: var(--bg); }
+.foot { color: var(--muted); font-size: 13px; max-width: 80ch; }
+.foot a { color: inherit; }
+.missing { color: var(--muted); font-style: italic; }
+.loading { color: var(--muted); padding: 40px 0; text-align: center; }
+@media (max-width: 560px) {
+  .slot { width: calc(50% - 5px); }
+  h1 { font-size: 26px; }
+}
+@media (prefers-reduced-motion: no-preference) { .bar i::after { transition: width .3s ease; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Probabili Euroleghe</h1>
+      <div class="sub" id="sub">Carico le probabili formazioni...</div>
+    </div>
+    <div class="teambar" id="teambar" hidden>
+      <label class="sub" for="teamSelect">Squadra</label>
+      <select id="teamSelect"></select>
+      <button class="ghost" type="button" id="newTeamBtn">+ Nuova squadra</button>
+    </div>
+  </header>
+
+  <div class="loading" id="loading">Carico le probabili formazioni...</div>
+
+  <!-- Creazione squadra -->
+  <section class="card" id="newTeam" hidden>
+    <h2 id="newTeamTitle">Inserisci la tua squadra</h2>
+    <div class="newteam">
+      <div class="row">
+        <input type="text" id="teamName" placeholder="Nome della tua squadra" aria-label="Nome della squadra" maxlength="60">
+      </div>
+      <ol class="steps">
+        <li>Il modo più veloce: su Leghe Fantacalcio scarica la rosa in CSV e caricala qui.</li>
+        <li>Oppure incolla i nomi dei tuoi giocatori, uno per riga, scritti come nell'app.</li>
+      </ol>
+      <div class="row">
+        <label class="file">Carica il CSV della rosa<input type="file" id="csvInput" accept=".csv,text/csv"></label>
+        <span class="small" id="csvInfo"></span>
+      </div>
+      <textarea id="newTeamText" placeholder="Courtois&#10;Svensson D.&#10;Haaland&#10;..." aria-label="Giocatori, uno per riga"></textarea>
+      <div class="row">
+        <button class="btn" type="button" id="createTeam">Salva la squadra</button>
+        <button class="ghost" type="button" id="cancelNew" hidden>Annulla</button>
+        <span class="msg" id="newTeamMsg" role="status"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="pitch" id="pitch" aria-label="Formazione consigliata" hidden>
+    <div class="pitch-head">
+      <h2>Formazione consigliata</h2>
+      <div class="modules" id="modules" role="group" aria-label="Modulo"></div>
+    </div>
+    <div id="field"></div>
+    <div class="bench">
+      <h3>Panchina in ordine</h3>
+      <ol id="bench"></ol>
+    </div>
+  </section>
+
+  <section class="card" id="rosaCard" hidden>
+    <div class="top">
+      <h2 id="rosaTitle">La rosa</h2>
+      <div class="teambar">
+        <button class="ghost" type="button" id="renameBtn">Rinomina</button>
+        <button class="ghost danger" type="button" id="deleteBtn">Elimina squadra</button>
+      </div>
+    </div>
+    <p class="example" id="exampleNote" hidden>Questa è una squadra di esempio. Premi <b>+ Nuova squadra</b> per inserire la tua.</p>
+    <form class="add" id="addForm">
+      <input type="text" id="addName" list="allPlayers" placeholder="Aggiungi un giocatore (es. Svensson D.)" autocomplete="off" aria-label="Nome giocatore">
+      <button class="btn" type="submit">Aggiungi</button>
+    </form>
+    <datalist id="allPlayers"></datalist>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Giocatore</th><th>Squadra</th><th>Partita</th><th>Titolare</th><th>Note</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+const ROLES = ["P", "D", "C", "A"];
+const ROLE_NAME = { P: "Portieri", D: "Difensori", C: "Centrocampisti", A: "Attaccanti", X: "Ruolo sconosciuto" };
+const ROLE_ONE = { P: "portiere", D: "difensore", C: "centrocampista", A: "attaccante" };
+const MODULI = ["3-4-3", "3-5-2", "4-3-3", "4-4-2", "4-5-1", "5-3-2", "5-4-1"];
+
+// Squadra di esempio mostrata a chi apre la pagina la prima volta
+const ESEMPIO = { id: "esempio", nome: "Polisportiva Ludopatici", esempio: true, rosa: [
+  ["P","Safonov","Paris Saint-Germain",5.44],["P","Verbruggen","Brighton",5.5],["P","Courtois","Real Madrid",5.79],
+  ["D","Vuskovic","Brighton",6.75],["D","Svensson D.","Borussia Dortmund",6.31],["D","Ryerson","Borussia Dortmund",6],
+  ["D","Van De Ven","Tottenham",6.06],["D","Gutierrez","Bayer Leverkusen",6.94],["D","Ruben Dias","Manchester City",6.12],
+  ["D","Miranda J.","Bologna",6.93],["D","Emerson P.","Olympique Marsiglia",6.38],
+  ["C","Manzambi","Aston Villa",8],["C","Nusa","Lipsia",8.94],["C","Rogers","Chelsea",7.81],["C","Guler","Real Madrid",7.38],
+  ["C","Bruno Guimaraes","Arsenal",7.07],["C","Tonali","Tottenham",6.19],["C","Frattesi","Lazio",6.94],["C","Kimmich","Bayern Monaco",6.57],
+  ["A","Paixao","Olympique Marsiglia",7.5],["A","Diomande Y.","Real Madrid",7.75],["A","Demirovic","Stoccarda",7.81],
+  ["A","Gakpo","Liverpool",6.92],["A","Haaland","Manchester City",10.12],["A","Cunha","Manchester United",6.86],
+].map(([ruolo, nome, squadra, fm]) => ({ ruolo, nome, squadra, fm })) };
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("euroleghe:" + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("euroleghe:" + k, JSON.stringify(v)); } catch {} },
+};
+const $ = id => document.getElementById(id);
+const norm = s => (s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+let DATI = null, byId = new Map(), byName = new Map();
+let squadre = store.get("squadre", null) || [ESEMPIO];
+let attiva = store.get("attiva", squadre[0]?.id);
+let modulo = store.get("modulo", "3-4-3");
+let confermaElimina = false;
+
+function salva() { store.set("squadre", squadre); store.set("attiva", attiva); }
+function squadraAttiva() { return squadre.find(s => s.id === attiva) || squadre[0] || null; }
+
+function el(tag, attrs = {}, ...figli) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v);
+  }
+  for (const f of figli.flat()) if (f != null && f !== false) e.append(f instanceof Node ? f : document.createTextNode(f));
+  return e;
+}
+
+// ---------- Abbinamento nomi ----------
+function trova(voce) {
+  if (voce.id && byId.has(voce.id)) return byId.get(voce.id);
+  const nome = (voce.nome || "").split(" — ")[0];
+  const esatti = byName.get(norm(nome));
+  if (esatti && esatti.length) return (voce.squadra && esatti.find(g => norm(g.squadra) === norm(voce.squadra))) || esatti[0];
+  const base = norm(nome).split(" ")[0];
+  const parziali = DATI.giocatori.filter(g => norm(g.nome).split(" ")[0] === base);
+  return parziali.length === 1 ? parziali[0] : null;
+}
+
+function voceDa(testo) {
+  testo = testo.trim();
+  if (!testo) return null;
+  const g = trova({ nome: testo });
+  return g ? { nome: g.nome, id: g.id, ruolo: g.ruolo, squadra: g.squadra } : { nome: testo.split(" — ")[0] };
+}
+
+function aggiungiA(rosa, voce) {
+  if (!voce) return;
+  if (rosa.some(v => (voce.id && v.id === voce.id) || norm(v.nome) === norm(voce.nome))) return;
+  rosa.push(voce);
+}
+
+// CSV di Leghe Fantacalcio: Ruolo;Nome;Squadra;...;Fanta Media;...
+function leggiCsv(testo) {
+  const righe = testo.replace(/^﻿/, "").split(/\r?\n/).filter(r => r.trim());
+  if (!righe.length) return [];
+  const sep = righe[0].includes(";") ? ";" : ",";
+  const intest = righe[0].split(sep).map(c => c.trim().toLowerCase());
+  const iN = intest.indexOf("nome"), iR = intest.indexOf("ruolo"), iS = intest.indexOf("squadra"), iF = intest.indexOf("fanta media");
+  if (iN < 0) return righe.map(r => ({ nome: r.split(sep)[0].trim() })).filter(v => v.nome);
+  return righe.slice(1).map(r => r.split(sep)).filter(c => (c[iN] || "").trim()).map(c => ({
+    nome: c[iN].trim(),
+    ruolo: iR >= 0 ? (c[iR] || "").trim().toUpperCase() : "",
+    squadra: iS >= 0 ? (c[iS] || "").trim() : "",
+    fm: iF >= 0 ? parseFloat((c[iF] || "0").replace(",", ".")) || 0 : 0,
+  }));
+}
+
+// ---------- Calcoli ----------
+function effPerc(g) {
+  if (!g) return -1;
+  if (g.avvisi.some(a => a.tipo === "Squalificato" || a.tipo === "Infortunato")) return 0;
+  return g.perc ?? 0;
+}
+const colore = p => p >= 75 ? "var(--good)" : p >= 50 ? "var(--warn)" : "var(--bad)";
+const partitaDi = g => DATI.partite[g.partita] || {};
+function quando(p) {
+  const m = /^(\S+)\s+(\d+)\s+(\S+),\s*(\d+:\d+)/.exec(p.quando || "");
+  return m ? `${m[1].slice(0, 3)} ${+m[2]} ${m[3].slice(0, 3)} · ${m[4]}` : (p.quando || "");
+}
+function righeRosa(sq) {
+  return sq.rosa.map((voce, i) => {
+    let g = trova(voce);
+    if (g && !g.ruolo && voce.ruolo) g = { ...g, ruolo: voce.ruolo };
+    return { voce, i, g };
+  });
+}
+const perOrdine = (x, y) => effPerc(y.g) - effPerc(x.g) || (y.voce.fm || 0) - (x.voce.fm || 0);
+
+// ---------- Disegno ----------
+function avvisiChips(g) {
+  const out = g.avvisi.map(a => el("span", { class: "chip " + (a.tipo === "Diffidato" ? "info" : a.tipo === "In dubbio" ? "warn" : "bad"), title: a.nota || a.tipo }, a.tipo));
+  if (g.ballottaggio) out.push(el("span", { class: "chip warn" }, `Ballottaggio con ${g.ballottaggio.con.map(c => `${c.nome} ${c.perc}%`).join(", ")}`));
+  if (g.stato === "panchina") out.push(el("span", { class: "chip info" }, "Parte dalla panchina"));
+  return out;
+}
+
+function renderTeambar() {
+  const sel = $("teamSelect");
+  sel.replaceChildren(...squadre.map(s => el("option", { value: s.id }, s.nome + (s.esempio ? " (esempio)" : ""))));
+  const sq = squadraAttiva();
+  if (sq) sel.value = sq.id;
+  $("teambar").hidden = !squadre.length;
+}
+
+function renderCampo(righe) {
+  const [d, c, a] = modulo.split("-").map(Number);
+  const quanti = { P: 1, D: d, C: c, A: a };
+  const scelti = new Set();
+  $("modules").replaceChildren(...MODULI.map(m => el("button", { type: "button", "aria-pressed": String(m === modulo),
+    onclick: () => { modulo = m; store.set("modulo", m); render(); } }, m)));
+  $("field").replaceChildren(...["A", "C", "D", "P"].map(r => {
+    const lista = righe.filter(x => x.g && x.g.ruolo === r).sort(perOrdine);
+    const slots = [];
+    for (let k = 0; k < quanti[r]; k++) {
+      const x = lista[k];
+      if (!x) { slots.push(el("div", { class: "slot empty" }, `Manca un ${ROLE_ONE[r]}`)); continue; }
+      scelti.add(x.i);
+      const g = x.g, pc = effPerc(g);
+      const grave = g.avvisi.find(a => a.tipo === "Squalificato" || a.tipo === "Infortunato");
+      slots.push(el("div", { class: "slot" },
+        el("div", { class: "nm" }, el("span", { class: "role " + r }, r), el("span", {}, g.nome)),
+        el("div", { class: "vs", title: `${g.squadra} contro ${g.avversario}` }, `${g.casa ? "vs" : "@"} ${g.avversario} · ${quando(partitaDi(g))}`),
+        el("div", { class: "pc", style: `color:${pc >= 75 ? "var(--on-pitch)" : pc >= 50 ? "var(--on-pitch-warn)" : "var(--on-pitch-bad)"}` }, `${pc}%`),
+        grave ? el("div", { class: "flag" }, grave.tipo) : null));
+    }
+    return el("div", { class: "line" }, slots);
+  }));
+  const panchina = righe.filter(x => x.g && !scelti.has(x.i))
+    .sort((x, y) => ROLES.indexOf(x.g.ruolo) - ROLES.indexOf(y.g.ruolo) || perOrdine(x, y));
+  $("bench").replaceChildren(...(panchina.length ? panchina.map(x => el("li", {},
+    el("span", { class: "role " + (x.g.ruolo || "X") }, x.g.ruolo || "?"), `${x.g.nome} ${effPerc(x.g)}%`))
+    : [el("li", {}, "Nessuno: aggiungi altri giocatori alla rosa")]));
+}
+
+function renderTabella(sq, righe) {
+  const out = [];
+  for (const r of [...ROLES, "X"]) {
+    const lista = righe.filter(x => ((x.g && x.g.ruolo) || x.voce.ruolo || "X") === r).sort(perOrdine);
+    if (!lista.length) continue;
+    out.push(el("tr", { class: "group" }, el("td", { colspan: "6" }, `${ROLE_NAME[r]} · ${lista.length}`)));
+    for (const { voce, i, g } of lista) {
+      const togli = el("button", { class: "x", type: "button", title: "Togli dalla rosa", "aria-label": `Togli ${voce.nome}`,
+        onclick: () => { sq.rosa.splice(i, 1); salva(); render(); } }, "×");
+      if (!g) {
+        out.push(el("tr", {},
+          el("td", {}, el("div", { class: "who" }, el("span", { class: "role " + (voce.ruolo || "X") }, voce.ruolo || "?"), voce.nome)),
+          el("td", { colspan: "4", class: "missing" }, `${voce.squadra ? voce.squadra + ": n" : "N"}on compare nelle probabili di questa giornata. Controlla come è scritto, oppure non è nella lista Euroleghe.`),
+          el("td", {}, togli)));
+        continue;
+      }
+      const p = partitaDi(g), info = DATI.squadre[g.squadra] || {}, pc = effPerc(g);
+      out.push(el("tr", {},
+        el("td", {}, el("div", { class: "who" }, el("span", { class: "role " + (g.ruolo || "X") }, g.ruolo || "?"), g.nome)),
+        el("td", {}, el("div", {}, g.squadra), el("div", { class: "small" }, info.campionato || "")),
+        el("td", {}, el("div", {}, `${g.casa ? "in casa contro" : "in trasferta a"} `, el("b", {}, g.avversario)),
+          el("div", { class: "small" }, `${quando(p)}${p.giornata ? " · giornata " + p.giornata : ""}`)),
+        el("td", {}, el("div", { class: "bar" }, el("b", { style: `color:${colore(pc)}` }, `${pc}%`), el("i", { style: `--v:${pc}%;--c:${colore(pc)}` }))),
+        el("td", {}, el("div", { class: "notes" }, avvisiChips(g)),
+          ...g.avvisi.filter(a => a.nota).map(a => el("div", { class: "small" }, `${a.tipo}: ${a.nota}`)),
+          info.commento ? el("details", {}, el("summary", {}, `Le ultime su ${g.squadra}`), el("p", {}, info.commento)) : null),
+        el("td", {}, togli)));
+    }
+  }
+  if (!out.length) out.push(el("tr", {}, el("td", { colspan: "6", class: "missing" }, "La rosa è vuota. Aggiungi i giocatori qui sopra.")));
+  $("rows").replaceChildren(...out);
+}
+
+function mostraNuova(mostra) {
+  $("newTeam").hidden = !mostra;
+  $("cancelNew").hidden = !squadre.length;
+  $("newTeamMsg").textContent = "";
+  if (mostra) $("teamName").focus();
+}
+
+function render() {
+  renderTeambar();
+  const sq = squadraAttiva();
+  const conSquadra = !!sq;
+  $("pitch").hidden = $("rosaCard").hidden = !conSquadra;
+  if (!conSquadra) { mostraNuova(true); return; }
+  $("rosaTitle").textContent = `La rosa di ${sq.nome}`;
+  $("exampleNote").hidden = !sq.esempio;
+  $("deleteBtn").textContent = confermaElimina ? "Conferma: elimina" : "Elimina squadra";
+  const righe = righeRosa(sq);
+  renderCampo(righe);
+  renderTabella(sq, righe);
+}
+
+// ---------- Azioni ----------
+let csvVoci = null;
+$("csvInput").addEventListener("change", async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  csvVoci = leggiCsv(await file.text());
+  $("csvInfo").textContent = csvVoci.length ? `${file.name}: ${csvVoci.length} giocatori letti` : `${file.name}: non ho trovato giocatori`;
+  if (!$("teamName").value.trim()) {
+    // es. "lega_nome-squadra_rosa_2026-11-03.csv" → "Nome Squadra"
+    const m = /^[^_]+_(.+?)_rosa/i.exec(file.name);
+    if (m) $("teamName").value = m[1].replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+  }
+});
+
+$("createTeam").addEventListener("click", () => {
+  const nome = $("teamName").value.trim();
+  const msg = $("newTeamMsg");
+  msg.className = "msg";
+  if (!nome) { msg.textContent = "Scrivi il nome della squadra."; $("teamName").focus(); return; }
+  const rosa = [];
+  for (const v of csvVoci || []) {
+    const g = trova(v);
+    aggiungiA(rosa, g ? { nome: g.nome, id: g.id, ruolo: g.ruolo || v.ruolo, squadra: g.squadra, fm: v.fm } : v);
+  }
+  $("newTeamText").value.split(/\n|;/).forEach(t => aggiungiA(rosa, voceDa(t)));
+  if (!rosa.length) { msg.textContent = "Carica il CSV o scrivi almeno un giocatore."; return; }
+  const sq = { id: "s" + Date.now().toString(36), nome, rosa };
+  squadre = squadre.filter(s => !s.esempio);
+  squadre.push(sq);
+  attiva = sq.id;
+  salva();
+  $("teamName").value = ""; $("newTeamText").value = ""; $("csvInput").value = ""; $("csvInfo").textContent = ""; csvVoci = null;
+  mostraNuova(false);
+  render();
+  $("pitch").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$("cancelNew").addEventListener("click", () => mostraNuova(false));
+$("newTeamBtn").addEventListener("click", () => mostraNuova(true));
+$("teamSelect").addEventListener("change", e => { attiva = e.target.value; confermaElimina = false; salva(); render(); });
+
+$("renameBtn").addEventListener("click", () => {
+  const sq = squadraAttiva();
+  const t = $("rosaTitle");
+  const inp = el("input", { type: "text", value: sq.nome, "aria-label": "Nuovo nome", maxlength: "60" });
+  const fatto = () => { const v = inp.value.trim(); if (v) { sq.nome = v; delete sq.esempio; salva(); } render(); };
+  inp.addEventListener("keydown", e => { if (e.key === "Enter") fatto(); if (e.key === "Escape") render(); });
+  inp.addEventListener("blur", fatto);
+  t.replaceChildren(inp); inp.focus(); inp.select();
+});
+
+$("deleteBtn").addEventListener("click", () => {
+  if (!confermaElimina) { confermaElimina = true; render(); setTimeout(() => { confermaElimina = false; render(); }, 4000); return; }
+  confermaElimina = false;
+  squadre = squadre.filter(s => s.id !== attiva);
+  attiva = squadre[0]?.id;
+  salva(); render();
+});
+
+$("addForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const sq = squadraAttiva();
+  aggiungiA(sq.rosa, voceDa($("addName").value));
+  $("addName").value = "";
+  delete sq.esempio;
+  salva(); render();
+});
+
+// ---------- Avvio ----------
+function avvia(dati) {
+  DATI = dati;
+  byId = new Map(DATI.giocatori.map(g => [g.id, g]));
+  for (const g of DATI.giocatori) {
+    const k = norm(g.nome);
+    if (!byName.has(k)) byName.set(k, []);
+    byName.get(k).push(g);
+  }
+  const giornata = Object.values(DATI.partite).map(p => p.giornata).find(Boolean);
+  $("sub").textContent = `${giornata ? "Giornata " + giornata + " · " : ""}probabili aggiornate il ${DATI.scaricato}`;
+  $("allPlayers").replaceChildren(...DATI.giocatori.map(g => el("option", { value: `${g.nome} — ${g.squadra}` })));
+  $("foot").replaceChildren(
+    "Squadre, avversari e percentuali di titolarità vengono dalle ",
+    el("a", { href: DATI.fonte, target: "_blank", rel: "noopener" }, "probabili formazioni Euroleghe di Fantacalcio.it"),
+    ". Infortunati e squalificati contano 0% nella formazione consigliata; a parità di percentuale vince la fantamedia del CSV. ",
+    "Le tue squadre restano salvate solo in questo browser: nessun altro le vede.");
+  $("loading").hidden = true;
+  render();
+}
+
+fetch("dati.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(avvia)
+  .catch(() => {
+    $("loading").textContent = "Non riesco a caricare le probabili formazioni. Ricarica la pagina tra poco.";
+    $("sub").textContent = "Dati non disponibili";
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+name: Aggiorna probabili
+
+on:
+  schedule:
+    # Orari in UTC: 8 e 16 UTC = 9:00 e 17:00 in Italia con l'ora solare (10 e 18 con l'ora legale)
+    - cron: "0 8,16 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aggiorna
+  cancel-in-progress: false
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scarica le probabili da Fantacalcio.it
+        run: python aggiorna.py
+
+      - name: Salva i dati nuovi
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add dati.json
+          if git diff --cached --quiet; then
+            echo "Nessuna novità"
+          else
+            git commit -m "Aggiorna probabili $(TZ=Europe/Rome date +'%d/%m %H:%M')"
+            git push
+          fi
