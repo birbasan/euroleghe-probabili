@@ -1,0 +1,848 @@
+{
+ "squadre": [
+  {
+   "id": "ac-tutti-fatti",
+   "nome": "AC Tutti Fatti",
+   "rosa": [
+    {
+     "nome": "Raya",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Alisson",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Carnesecchi",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Dimarco",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Saliba",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Molina N.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Timber J.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Matheus Nunes",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Frimpong",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Konatè I.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bremer",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Olise",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Cherki",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Zaccagni",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Uzun",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Mac Allister",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Bernardo Silva",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Isco",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Berenguer",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Mbappè",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Saka",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Ramos G.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Romulo",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Burkardt",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Barcola B.",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "sc-ulati",
+   "nome": "SC ULATI",
+   "rosa": [
+    {
+     "nome": "Butez",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Martinez Jo.",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Provedel",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Hakimi",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Wesley",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Carlos Augusto",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Huijsen",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Alexander-Arnold",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Dumfries",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Khusanov",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bisseck",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bellingham",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Musiala",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Calhanoglu",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Szoboszlai",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Wirtz",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Vitinha",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Odegaard",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Simeone G.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Torres F.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Dembelè O.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Alvarez J.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Lepaul",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Thuram",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Williams N.",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "husqvirts-fc",
+   "nome": "HUSQVIRTS FC",
+   "rosa": [
+    {
+     "nome": "Unai Simon",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Neuer",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Suzuki",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Cubarsì",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Nuno Mendes",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Hancko",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Porro",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Baku",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Tah",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Van Hecke",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Mancini",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Paz N.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Saibari",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Valverde",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Da Cunha",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Tchouameni",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Joao Neves",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Lee K.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Zielinski",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Isak",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Malen",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Semenyo",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Douè D.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Mbeumo",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Doku",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "real-calvos",
+   "nome": "Real Calvos",
+   "rosa": [
+    {
+     "nome": "Oblak",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Mandas",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Meret",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Brown N.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Marquinhos",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Gila",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Davies A.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "De Cuyper",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Quansah",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Hall",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bastoni",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Fernandez E.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "McTominay",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Rice",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Nmecha F.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Tavernier M.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Maza",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Mastantuono",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Gross",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Kane",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Guirassy",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Vinicius Junior",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Gouiri",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Gyokeres",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Jackson",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "europe-figa-club",
+   "nome": "Europe Figa Club",
+   "rosa": [
+    {
+     "nome": "Svilar",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Vicario",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Gollini",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Grimaldo",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Calafiori",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Tavares N.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Ramon",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Schlotterbeck N.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Pavlovic",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Lulli",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Rudiger",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bruno Fernandes",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Rabiot",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Gnabry",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Baturina",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Mayulu",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Leweling",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Baumgartner C.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Pepe N.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Joao Pedro J.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Martinez L.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Luis Diaz",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Douvikas",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Ebnoutalib",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Undav",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "polisportiva-ludopatici",
+   "nome": "Polisportiva Ludopatici",
+   "rosa": [
+    {
+     "nome": "Courtois",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Safonov",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Verbruggen",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Gutierrez",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Vuskovic",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Ryerson",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Ruben Dias",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Svensson D.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Van De Ven",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Miranda J.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Emerson P.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Nusa",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Rogers",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Guler",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Bruno Guimaraes",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Manzambi",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Tonali",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Frattesi",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Kimmich",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Haaland",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Diomande Y.",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Cunha",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Paixao",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Demirovic",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Gakpo",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "moioli-colombo-fc",
+   "nome": "MOIOLI COLOMBO FC",
+   "rosa": [
+    {
+     "nome": "Kobel",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Donnarumma G.",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Meyer A.",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Gabriel Magalhaes",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Mittelstadt",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Bartesaghi",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Colwill",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Truffert",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Konsa",
+     "ruolo": "D"
+    },
+    {
+     "nome": "White",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Upamecano",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Palmer",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Pulisic",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Moleiro",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Foden",
+     "ruolo": "C"
+    },
+    {
+     "nome": "De Bruyne",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Orsolini",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Thomasson",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Rodri",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Raphinha",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Schick",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Evanilson",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Gabriel Jesus",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Krstovic",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Havertz",
+     "ruolo": "A"
+    }
+   ]
+  },
+  {
+   "id": "negreira---friends",
+   "nome": "Negreira & Friends",
+   "rosa": [
+    {
+     "nome": "Garcia J.",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Maignan",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Livakovic",
+     "ruolo": "P"
+    },
+    {
+     "nome": "Cancelo",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Gvardiol",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Van Dijk",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Koundè",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Araujo R.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Jimenez A.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Espart",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Martin G.",
+     "ruolo": "D"
+    },
+    {
+     "nome": "Lopez F.",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Baena",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Olmo",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Ruiz",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Moreira",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Zaire-Emery",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Bernal",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Lamine Yamal",
+     "ruolo": "C"
+    },
+    {
+     "nome": "Hojlund",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Parrott",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Kvaratskhelia",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Ezzalzouli",
+     "ruolo": "A"
+    },
+    {
+     "nome": "Gordon",
+     "ruolo": "A"
+    }
+   ]
+  }
+ ]
+}

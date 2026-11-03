@@ -5,6 +5,10 @@ on:
     # Orari in UTC: 8 e 16 UTC = 9:00 e 17:00 in Italia con l'ora solare (10 e 18 con l'ora legale)
     - cron: "0 8,16 * * *"
   workflow_dispatch:
+  # Quando si carica un nuovo Excel delle rose nella cartella rose/
+  push:
+    paths:
+      - "rose/**"
 
 permissions:
   contents: write
@@ -30,7 +34,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
-          git add dati.json
+          git add dati.json squadre.json
           if git diff --cached --quiet; then
             echo "Nessuna novità"
           else
